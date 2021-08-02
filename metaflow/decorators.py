@@ -81,6 +81,7 @@ class Decorator(object):
 
     name = 'NONAME'
     defaults = {}
+    variable_attributes = False
 
     def __init__(self,
                  attributes=None,
@@ -91,6 +92,8 @@ class Decorator(object):
         if attributes:
             for k, v in attributes.items():
                 if k in self.defaults:
+                    self.attributes[k] = v
+                elif self.variable_attributes:
                     self.attributes[k] = v
                 else:
                     raise InvalidDecoratorAttribute(
