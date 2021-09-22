@@ -137,6 +137,16 @@ SFN_STATE_MACHINE_PREFIX = from_conf("METAFLOW_SFN_STATE_MACHINE_PREFIX")
 SFN_EXECUTION_LOG_GROUP_ARN = from_conf("METAFLOW_SFN_EXECUTION_LOG_GROUP_ARN")
 
 ###
+# AWS Lambda configuration
+###
+LAMBDA_ROLE_ARN = from_conf("METAFLOW_LAMBDA_ROLE_ARN")
+LAMBDA_IMAGE_URI = from_conf("METAFLOW_LAMBDA_IMAGE_URI")
+# This limit is used to retry lambda execution when we're throttled by AWS due to
+# being close to the parallel execution limit. This does *not* affect how much we
+# retry if the step itself has failed.
+LAMBDA_THROTTLE_RETRIES = int(from_conf("METAFLOW_LAMBDA_THROTTLE_RETRIES", 20))
+
+###
 # Conda configuration
 ###
 # Conda package root location on S3

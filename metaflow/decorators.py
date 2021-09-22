@@ -217,7 +217,7 @@ class StepDecorator(Decorator):
         """
         pass
 
-    def package_init(self, flow, step_name, environment):
+    def package_init(self, flow, step_name, environment, logger):
         """
         Called to determine package components
         """

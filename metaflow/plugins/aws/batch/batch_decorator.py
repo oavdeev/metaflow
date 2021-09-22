@@ -2,7 +2,6 @@ import os
 import sys
 import platform
 import re
-import tarfile
 import requests
 
 from metaflow.decorators import StepDecorator
@@ -12,7 +11,7 @@ from metaflow.plugins.timeout_decorator import get_run_time_limit_for_task
 from metaflow.plugins.aws.utils import sync_local_metadata_to_datastore
 from metaflow.metadata import MetaDatum
 
-from metaflow import util
+
 from metaflow import R
 
 from .batch import BatchException
@@ -228,6 +227,7 @@ class BatchDecorator(StepDecorator):
             self._save_logs_sidecar.kill()
         except:
             pass
+
 
     @classmethod
     def _save_package_once(cls, flow_datastore, package):

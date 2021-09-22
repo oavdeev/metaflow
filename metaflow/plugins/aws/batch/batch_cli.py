@@ -29,7 +29,6 @@ from metaflow.exception import (
 from metaflow.mflog import TASK_LOG_SOURCE
 
 
-
 @click.group()
 def cli():
     pass

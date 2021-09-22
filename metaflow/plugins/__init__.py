@@ -89,11 +89,15 @@ def get_plugin_cli():
     from . import package_cli
     from .aws.batch import batch_cli
     from .aws.step_functions import step_functions_cli
+    from .aws.awslambda import lambda_cli
+
 
     return _ext_plugins.get_plugin_cli() + [
         package_cli.cli,
         batch_cli.cli,
-        step_functions_cli.cli]
+        step_functions_cli.cli,
+        lambda_cli.cli,
+    ]
 
 
 def _merge_lists(base, overrides, attr):
@@ -118,6 +122,7 @@ from .aws.step_functions.step_functions_decorator \
 from .test_unbounded_foreach_decorator\
     import InternalTestUnboundedForeachDecorator, InternalTestUnboundedForeachInput
 from .conda.conda_step_decorator import CondaStepDecorator
+from .aws.awslambda.lambda_decorator import LambdaDecorator
 
 STEP_DECORATORS = _merge_lists([CatchDecorator,
                                 TimeoutDecorator,
@@ -127,6 +132,7 @@ STEP_DECORATORS = _merge_lists([CatchDecorator,
                                 BatchDecorator,
                                 StepFunctionsInternalDecorator,
                                 CondaStepDecorator,
+                                LambdaDecorator,
                                 InternalTestUnboundedForeachDecorator],
                                     _ext_plugins.STEP_DECORATORS, 'name')
 
