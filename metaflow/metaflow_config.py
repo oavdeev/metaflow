@@ -369,6 +369,8 @@ KUBERNETES_SANDBOX_INIT_SCRIPT = from_conf("METAFLOW_KUBERNETES_SANDBOX_INIT_SCR
 MAX_MEMORY_PER_TASK = from_conf("METAFLOW_MAX_MEMORY_PER_TASK")
 MAX_CPU_PER_TASK = from_conf("METAFLOW_MAX_CPU_PER_TASK")
 
+OTEL_ENDPOINT = from_conf("METAFLOW_OTEL_ENDPOINT")
+
 # MAX_ATTEMPTS is the maximum number of attempts, including the first
 # task, retries, and the final fallback task and its retries.
 #

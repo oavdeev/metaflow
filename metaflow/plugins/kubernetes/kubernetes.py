@@ -19,6 +19,7 @@ from metaflow.metaflow_config import (
     AZURE_STORAGE_BLOB_SERVICE_ENDPOINT,
     DATASTORE_SYSROOT_AZURE,
     DATASTORE_CARD_AZUREROOT,
+    OTEL_ENDPOINT,
 )
 from metaflow.mflog import (
     BASH_SAVE_LOGS,
@@ -208,6 +209,7 @@ class Kubernetes(object):
             .environment_variable(
                 "METAFLOW_INIT_SCRIPT", KUBERNETES_SANDBOX_INIT_SCRIPT
             )
+            .environment_variable("METAFLOW_OTEL_ENDPOINT", OTEL_ENDPOINT)
             # Skip setting METAFLOW_DATASTORE_SYSROOT_LOCAL because metadata sync
             # between the local user instance and the remote Kubernetes pod
             # assumes metadata is stored in DATASTORE_LOCAL_DIR on the Kubernetes

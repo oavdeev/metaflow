@@ -5,6 +5,9 @@ import random
 import sys
 import time
 
+from metaflow.tracing import inject_tracing_vars
+
+
 from metaflow.exception import MetaflowException
 from metaflow.metaflow_config import KUBERNETES_NODE_SELECTOR, KUBERNETES_SECRETS
 
@@ -130,6 +133,10 @@ class KubernetesJob(object):
                                         "METAFLOW_KUBERNETES_POD_ID": "metadata.uid",
                                         "METAFLOW_KUBERNETES_SERVICE_ACCOUNT_NAME": "spec.serviceAccountName",
                                     }.items()
+                                ]
+                                + [
+                                    client.V1EnvVar(name=k, value=str(v))
+                                    for k, v in inject_tracing_vars({}).items()
                                 ],
                                 env_from=[
                                     client.V1EnvFromSource(
