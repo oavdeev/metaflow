@@ -15,7 +15,7 @@ from io import BytesIO
 from functools import partial
 
 from . import get_namespace
-from .metaflow_config import MAX_ATTEMPTS
+from .metaflow_config import MAX_ATTEMPTS, MFGUI_URL
 from .exception import (
     MetaflowException,
     MetaflowInternalError,
@@ -184,8 +184,19 @@ class NativeRuntime(object):
         self._is_cloned[task.path] = task.is_cloned
 
     def execute(self):
-
-        self._logger("Workflow starting (run-id %s):" % self._run_id, system_msg=True)
+        if MFGUI_URL:
+            self._logger(
+                "Workflow starting (run-id %s), see it in the UI at %s"
+                % (
+                    self._run_id,
+                    os.path.join(MFGUI_URL, self._flow.name, self._run_id),
+                ),
+                system_msg=True,
+            )
+        else:
+            self._logger(
+                "Workflow starting (run-id %s):" % self._run_id, system_msg=True
+            )
 
         self._metadata.start_run_heartbeat(self._flow.name, self._run_id)
 
@@ -240,7 +251,13 @@ class NativeRuntime(object):
 
         # assert that end was executed and it was successful
         if ("end", ()) in self._finished:
-            self._logger("Done!", system_msg=True)
+            if MFGUI_URL:
+                self._logger("Done! See the run in the UI at %s"
+                % (
+                    os.path.join(MFGUI_URL, self._flow.name, self._run_id),
+                ), system_msg=True)
+            else:
+                self._logger("Done!", system_msg=True)
         else:
             raise MetaflowInternalError(
                 "The *end* step was not successful " "by the end of flow."
