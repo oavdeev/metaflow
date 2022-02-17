@@ -437,7 +437,6 @@ def import_from(profile, input_filename):
     "`METAFLOW_PROFILE` environment variable.",
 )
 def sandbox(profile):
-    overwrite_config(profile)
     # Prompt for user input.
     encoded_str = click.prompt(
         "Following instructions from "
