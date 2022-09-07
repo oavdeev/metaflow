@@ -71,8 +71,8 @@ class KubernetesDecorator(StepDecorator):
 
     name = "kubernetes"
     defaults = {
-        "cpu": "1",
-        "memory": "4096",
+        "cpu": "2",
+        "memory": "8192",
         "disk": "10240",
         "image": None,
         "service_account": None,
